@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/valterlucena/visualizacao-de-dados/master/loona.csv?token=AED3EYMHSI7SKOYDQWS6H725S4Y5I",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "width": 600,
+  "height": 400,
+  "transform": [
+    {
+      "window": [{
+        "op": "rank",
+        "as": "rank"
+      }],
+      "sort": [{ "field": "track_popularity", "order": "descending" }]
+    }, {
+      "filter": "datum.rank <= 10"
+    }
+  ],
+  "mark": {
+    "type": "trail",
+    "point": true
+  },
+  "encoding": {
+    "x": {
+      "field": "track_album_release_date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "track_popularity",
+      "type":"quantitative",
+      "aggregate": "max"
+    }
+  }
+}

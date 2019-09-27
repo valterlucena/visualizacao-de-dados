@@ -1,0 +1,26 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/valterlucena/visualizacao-de-dados/master/loona.csv?token=AED3EYPEWT55DNI2SVOTPI25S46SI",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "track_album_name",
+      "type": "nominal"
+    },
+    "x": {
+      "field": "total_mode",
+      "type":"quantitative",
+      "aggregate": "sum",
+      "stack": "normalize"
+    },
+    "color": {
+      "field": "mode_name",
+      "type": "nominal"
+    }
+  }
+}
