@@ -1,37 +1,120 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "data": {
-    "url": "https://raw.githubusercontent.com/valterlucena/visualizacao-de-dados/master/loona.csv?token=AED3EYMHSI7SKOYDQWS6H725S4Y5I",
+    "url": "https://raw.githubusercontent.com/valterlucena/visualizacao-de-dados/master/loona.csv",
     "format": {
       "type": "csv"
     }
   },
   "width": 600,
-  "height": 400,
-  "transform": [
+  "height": 300,
+  "layer": [
     {
-      "window": [{
-        "op": "rank",
-        "as": "rank"
-      }],
-      "sort": [{ "field": "track_popularity", "order": "descending" }]
-    }, {
-      "filter": "datum.rank <= 10"
-    }
-  ],
-  "mark": {
-    "type": "trail",
-    "point": true
-  },
-  "encoding": {
-    "x": {
-      "field": "track_album_release_date",
-      "type": "temporal"
+      "encoding": {
+        "x": {
+          "field": "track_album_release_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "energy",
+          "aggregate": "max",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "tipo_lancamento",
+          "type": "nominal"
+        }
+      },
+      "layer": [{
+        "mark": {
+          "type": "line",
+          "point": true
+        }
+      },{
+        "selection": {
+          "label": {
+              "type": "single",
+              "nearest": true,
+              "on": "mouseover",
+              "encodings": [
+                "x"
+              ],
+              "empty": "none"
+            }
+        },
+        "mark": "point",
+        "encoding": {
+          "opacity": {
+            "condition": {
+              "selection": "label",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      }]
     },
-    "y": {
-      "field": "track_popularity",
-      "type":"quantitative",
-      "aggregate": "max"
+    {
+      "transform": [
+        {
+          "filter": {
+            "selection": "label"
+          }
+        }
+      ],
+      "layer": [{
+        "mark": {
+         "type": "rule",
+         "color": "gray"
+        },
+        "encoding": {
+          "x": {
+            "type": "temporal",
+            "field": "track_album_release_date"
+          }
+        }
+      }, {
+        "encoding": {
+          "text": {
+            "type": "quantitative",
+            "aggregate": "max",
+            "field": "energy"
+          },
+          "x": {
+            "type": "temporal",
+            "field": "track_album_release_date"
+          },
+          "y": {
+            "type": "quantitative",
+            "aggregate": "max",
+            "field": "energy"
+          }
+        },
+        "layer": [{
+          "mark": {
+            "type": "text",
+            "stroke": "white",
+            "strokeWidth": 2,
+            "align": "left",
+            "dx": 5,
+            "dy": -5
+          }
+        }, {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 5,
+            "dy": -5
+          },
+          "encoding": {
+            "color": {
+              "type": "nominal",
+              "field": "symbol",
+              "legend": null
+            }
+          }
+        }]
+      }]
     }
-  }
+  ]
 }
