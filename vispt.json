@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/valterlucena/visualizacao-de-dados/master/gastos_esfera_partidaria_partidos.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "width": 600,
+  "height": 300,
+  "transform": [
+    {
+      "filter": "datum.SG_PARTIDO === 'PSL'"
+    }
+  ],
+  "mark": "bar",  
+  "title": {
+    "text": "O quão enérgicas são as músicas do LOOΠΔ",
+    "anchor": "start"
+  },
+  "encoding": {
+    "y": {
+      "field": "DS_TP_ESPERA_PARTIDARIA",
+      "type": "nominal",
+      "sort": {
+        "field": "total_gasto",
+        "order": "descending"
+      }
+    },
+    "x": {
+      "field": "total_gasto",
+      "type": "quantitative",
+      "scale": {"type": "log"}
+    }
+  }
+}
